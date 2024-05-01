@@ -104,7 +104,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z github history macos vscode npm zsh-nvm lol)
+plugins=(git z github history macos vscode npm lol)
 # pip pyenv pylint python sublime
 ZSH_DISABLE_COMPFIX= true
 source $ZSH/oh-my-zsh.sh
@@ -141,11 +141,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export PATH="$HOME/.rbenv/bin:$PATH"
+PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+command -v pyenv >/dev/null || PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -154,7 +154,7 @@ source ~/.oh-my-zsh/zsh-git-prompt/zshrc.sh
 # Some tmux-related shell aliases
 
 # Attaches tmux to the last session; creates a new session if none exists.
-alias t='tmux attach || tmux new-session'
+alias t='tmux attach -t "sesh" || tmux new-session'
 
 # Attaches tmux to a session (example: ta portal)
 alias ta='tmux attach -t'
@@ -184,6 +184,25 @@ fi
 
 source ~/.zshrc.local
 
-export PATH="/Applications/Postgres.app/Contents/Versions/13/bin:$PATH"
+PATH="/Applications/Postgres.app/Contents/Versions/13/bin:$PATH"
 
 eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/powerlevel10k_rainbow.omp.json)"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+export JAVA_HOME=/usr/local/Cellar/openjdk@17/17.0.7/libexec/openjdk.jdk/Contents/Home
+
+PATH="$HOME/.composer/vendor/bin:$PATH"
+
+export PATH
+
+# bun completions
+[ -s "/Users/zero/.bun/_bun" ] && source "/Users/zero/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+PATH=~/.console-ninja/.bin:$PATH
