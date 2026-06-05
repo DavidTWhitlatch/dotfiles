@@ -1,8 +1,7 @@
 # OPENSPEC:START
 # OpenSpec shell completions configuration
-fpath=("/Users/zero/.oh-my-zsh/custom/completions" $fpath)
-autoload -Uz compinit
-compinit
+fpath=("$HOME/.oh-my-zsh/custom/completions" $fpath)
+# compinit is run later by oh-my-zsh (oh-my-zsh.sh); no need to run it twice
 # OPENSPEC:END
 
 # load custom executable functions
@@ -144,9 +143,18 @@ alias ohmyzsh="code ~/.oh-my-zsh"
 
 # alias ls="eza --long --header --git --icons"
 
+# nvm — lazy-loaded so it doesn't slow every shell startup; the real nvm
+# (and node/npm/npx) loads on first use of any of them.
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+_load_nvm() {
+  unset -f nvm node npm npx 2>/dev/null
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+nvm()  { _load_nvm; nvm "$@"; }
+node() { _load_nvm; node "$@"; }
+npm()  { _load_nvm; npm "$@"; }
+npx()  { _load_nvm; npx "$@"; }
 
 # rbenv disabled (no longer using Ruby)
 # PATH="$HOME/.rbenv/bin:$PATH"
