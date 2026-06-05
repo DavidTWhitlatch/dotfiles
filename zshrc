@@ -1,3 +1,5 @@
+# Added by ForgeCode installer
+export PATH="/Users/zero/.local/bin:$PATH"
 # OPENSPEC:START
 # OpenSpec shell completions configuration
 fpath=("$HOME/.oh-my-zsh/custom/completions" $fpath)
@@ -56,7 +58,7 @@ export ZSH="$HOME/.oh-my-zsh"
   # load a random theme each time oh-my-zsh is loaded, in which case,
     # to know which specific one was loaded, run: echo $RANDOM_THEME
     # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-    ZSH_THEME=""  # prompt handled by oh-my-posh (loaded at the bottom of this file)
+    ZSH_THEME=""  # prompt handled by oh-my-posh (loaded near the bottom)
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -169,38 +171,20 @@ _zsh_syntax_hl="$(brew --prefix 2>/dev/null)/share/zsh-syntax-highlighting/zsh-s
 [ -f "$_zsh_syntax_hl" ] && source "$_zsh_syntax_hl"
 unset _zsh_syntax_hl
 
-# --- tmux disabled (using Herd instead); kept as backup ---
-# Some tmux-related shell aliases
-#
+# --- tmux disabled (migrated to herdr); aliases kept as backup ---
 # # Attaches tmux to the last session; creates a new session if none exists.
 # alias t='tmux attach -t "sesh" || tmux new-session'
-#
 # # Attaches tmux to a session (example: ta portal)
 # alias ta='tmux attach -t'
-#
 # # Creates a new session
 # alias tn='tmux new-session'
-#
 # # Lists all ongoing sessions
 # alias tl='tmux list-sessions'
 
 alias lcc='~/lcc.sh'
 
-# --- tmux auto-start disabled (using Herd instead); kept as backup ---
-# session_name="sesh"
-#
-# tmux has-session -t=$session_name  2> /dev/null
-#
-# if [[ $? -ne 0 ]]; then
-#   TMUX=''
-#   tmux new-session -d -s "$session_name" -c ~/Documents/projects
-# fi
-#
-# if [[ -z "$TMUX" ]]; then
-#   tmux attach -t "$session_name"
-# else
-#   tmux switch-client -t "$session_name"
-# fi
+# tmux autostart migrated to herdr — see the herdr launch block at the end of this file.
+# (Old tmux "sesh" auto-attach removed 2026-05-23.)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -219,3 +203,44 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/Users/zero/doubledev/doubledev-mise_en_place/target/release:$PATH"
+
+# >>> forge initialize >>>
+# !! Contents within this block are managed by 'forge zsh setup' !!
+# !! Do not edit manually - changes will be overwritten !!
+
+# Add required zsh plugins if not already present
+if [[ ! " ${plugins[@]} " =~ " zsh-autosuggestions " ]]; then
+    plugins+=(zsh-autosuggestions)
+fi
+if [[ ! " ${plugins[@]} " =~ " zsh-syntax-highlighting " ]]; then
+    plugins+=(zsh-syntax-highlighting)
+fi
+
+# Load forge shell plugin (commands, completions, keybindings) if not already loaded
+if [[ -z "$_FORGE_PLUGIN_LOADED" ]]; then
+    eval "$(forge zsh plugin)"
+fi
+
+# Load forge shell theme (prompt with AI context) if not already loaded
+if [[ -z "$_FORGE_THEME_LOADED" ]]; then
+    eval "$(forge zsh theme)"
+fi
+
+# Disable Nerd Fonts (set during setup - icons not displaying correctly)
+# To re-enable: remove this line and install a Nerd Font from https://www.nerdfonts.com/
+export NERD_FONT=0
+# <<< forge initialize <<<
+
+# Launch herdr on interactive terminal startup (replaces the old tmux autostart).
+# Guards: only interactive shells attached to a real TTY, never inside an existing
+# herdr pane ($HERDR_PANE_ID) or tmux session ($TMUX). Quitting herdr drops you to
+# this shell as an escape hatch. To skip on launch: `HERDR_NO_AUTOSTART=1`.
+if [[ -o interactive ]] \
+  && [[ -t 1 ]] \
+  && [[ -z "$HERDR_PANE_ID" ]] \
+  && [[ -z "$TMUX" ]] \
+  && [[ -z "$HERDR_NO_AUTOSTART" ]] \
+  && command -v herdr >/dev/null 2>&1; then
+  herdr
+fi
