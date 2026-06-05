@@ -13,19 +13,26 @@ Establece zsh como tu shell de inicio de sesión:
 Instalar
 --------
 
-Clona en tu laptop:
+En una Mac nueva, clona el repo y ejecuta el script de instalación:
 
-    git clone git://github.com/thoughtbot/dotfiles.git ~/dotfiles
+    git clone https://github.com/DavidTWhitlatch/dotfiles.git ~/dotfiles
+    ~/dotfiles/install.sh
 
-(o [haz un fork y mantenlo actualizado](http://robots.thoughtbot.com/keeping-a-github-fork-updated)).
+`install.sh` es idempotente (seguro de re-ejecutar). Instala Homebrew si falta,
+instala todas las dependencias del [`Brewfile`](Brewfile) con `brew bundle`
+(`rcm`, `oh-my-posh`, `zsh-syntax-highlighting`, `fzf`, [`herdr`](https://herdr.dev),
+`pyenv`, `asdf`, `the_silver_searcher`, `universal-ctags`, `git`, `git-lfs` y una
+Nerd Font), configura `fzf`, instala oh-my-zsh + `zsh-autosuggestions` y nvm,
+establece `zsh` como shell de inicio, y enlaza los dotfiles con
+[rcm](https://github.com/thoughtbot/rcm).
 
-Instala [rcm](https://github.com/thoughtbot/rcm):
+**Prerrequisitos manuales** que el script no instala: `forge` (ForgeCode),
+`doubledev-mise_en_place`, y opcionalmente `bun`, VS Code y Sourcetree.
+
+### Instalación manual (sin el script)
 
     brew tap thoughtbot/formulae
-    brew install rcm
-
-Instala los dotfiles:
-
+    brew bundle --file=~/dotfiles/Brewfile
     env RCRC=$HOME/dotfiles/rcrc rcup
 
 Después de la instalación inicial, puedes ejecutarlo sin establecer la variable `RCRC`

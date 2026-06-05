@@ -3,47 +3,55 @@ thoughtbot dotfiles
 
 ![prompt](http://images.thoughtbot.com/thoughtbot-dotfiles-prompt.png)
 
-Requirements
-------------
-
-Set zsh as your login shell:
-
-    chsh -s $(which zsh)
-
 Install
 -------
 
-Clone onto your laptop:
+On a fresh macOS machine, clone the repo and run the bootstrap script:
 
     git clone https://github.com/DavidTWhitlatch/dotfiles.git ~/dotfiles
+    ~/dotfiles/install.sh
 
 (Or, [fork and keep your fork
-updated](http://robots.thoughtbot.com/keeping-a-github-fork-updated)).
+updated](http://robots.thoughtbot.com/keeping-a-github-fork-updated).)
 
-Install [rcm](https://github.com/thoughtbot/rcm):
+`install.sh` is idempotent — safe to re-run; each step is skipped if already
+done. It will:
+
+1. Install [Homebrew](https://brew.sh) if it is missing.
+2. Install every package dependency from the [`Brewfile`](Brewfile) via `brew bundle`.
+3. Configure `fzf` key bindings, install [oh-my-zsh](https://ohmyz.sh) plus the
+   `zsh-autosuggestions` plugin, and install [nvm](https://github.com/nvm-sh/nvm)
+   into `~/.nvm`.
+4. Set `zsh` as your login shell.
+5. Symlink every dotfile into `$HOME` with [rcm](https://github.com/thoughtbot/rcm)
+   (`env RCRC=$HOME/dotfiles/rcrc rcup`).
+
+### What gets installed
+
+Homebrew packages (see [`Brewfile`](Brewfile)): `rcm`, `oh-my-posh`,
+`zsh-syntax-highlighting`, `fzf`, [`herdr`](https://herdr.dev), `pyenv`, `asdf`,
+`the_silver_searcher` (`ag`), `universal-ctags`, `git`, `git-lfs`, and a Nerd Font.
+
+Bootstrapped outside Homebrew: oh-my-zsh + `zsh-autosuggestions`, and nvm (`~/.nvm`).
+
+**Manual prerequisites** the script does *not* install (set these up separately if
+you use them):
+
+* `forge` (ForgeCode CLI) — provides the managed `forge zsh plugin/theme` block in `zshrc`.
+* `doubledev-mise_en_place` — a local project added to `PATH` in `zshrc`.
+* `bun`, VS Code, and Sourcetree — optional; not installed by the script.
+
+### Manual install (without the script)
 
     brew tap thoughtbot/formulae
-    brew install rcm
-
-Install the dotfiles:
-
+    brew bundle --file=~/dotfiles/Brewfile
     env RCRC=$HOME/dotfiles/rcrc rcup
 
-After the initial installation, you can run `rcup` without the one-time variable
-`RCRC` being set (`rcup` will symlink the repo's `rcrc` to `~/.rcrc` for future
-runs of `rcup`). [See
-example](https://github.com/thoughtbot/dotfiles/blob/master/rcrc).
-
-This command will create symlinks for config files in your home directory.
-Setting the `RCRC` environment variable tells `rcup` to use standard
-configuration options:
-
-* Exclude the `README.md`, `README-ES.md` and `LICENSE` files, which are part of
-  the `dotfiles` repository but do not need to be symlinked in.
-* Give precedence to personal overrides which by default are placed in
-  `~/dotfiles-local`
-* Please configure the `rcrc` file if you'd like to make personal
-  overrides in a different directory
+After the first run you can invoke `rcup` on its own — it symlinks the repo's
+`rcrc` to `~/.rcrc` for future runs. `rcup` creates symlinks for config files in
+your home directory; the [`rcrc`](rcrc) file controls which files are excluded
+(`README*`, `LICENSE`, `install.sh`, `Brewfile`, …) and gives precedence to
+personal overrides placed in `~/dotfiles-local`.
 
 
 Update
