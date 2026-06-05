@@ -53,10 +53,8 @@ De vez en cuando deberías descargar las actualizaciones de estos dotfiles, y ej
 
     rcup
 
-para ligar cualquier nuevo archivo e instalar los nuevos plugins de vim. **Nota** _Debes_ ejecutar
-`rcup` después de descargar para asegurarte que todos los archivos de los plugins
-estén instalados adecuadamente. Puedes ejecutar `rcup` con seguridad muchas veces
-para actualizar pronto y muy seguido!
+para ligar cualquier nuevo archivo. **Nota** Puedes ejecutar `rcup` con seguridad
+muchas veces para actualizar pronto y muy seguido!
 
 
 Haz tus propias modificaciones
@@ -74,8 +72,6 @@ Pon tus modificaciones en `~/dotfiles-local` anexado con `.local`:
 * `~/dotfiles-local/psqlrc.local` (proveemos `.psqlrc.local` en blanco para prevenir que `psql`
   arroje un error, pero debes sobreescribir el archivo con tu propia copia)
 * `~/dotfiles-local/tmux.conf.local`
-* `~/dotfiles-local/vimrc.local`
-* `~/dotfiles-local/vimrc.bundles.local`
 * `~/dotfiles-local/zshrc.local`
 * `~/dotfiles-local/zsh/configs/*`
 
@@ -94,30 +90,6 @@ Tu `~/dotfiles-local/gitconfig.local` tal vez se vea así:
       name = Dan Croak
       email = dan@thoughtbot.com
 
-Tu `~/dotfiles-local/vimrc.local` tal vez se vea así:
-
-    " Color scheme
-    colorscheme github
-    highlight NonText guibg=#060606
-    highlight Folded  guibg=#0A0A0A guifg=#9090D0
-
-Si prefieres prevenir la instalación de un plugin predeterminado de vim en `.vimrc.bundles`,
-puedes ignorarlo sacándolo con `UnPlug` en tu `~/.vimrc.bundles.local`.
-
-    " Don't install vim-scripts/tComment
-    UnPlug 'tComment'
-
-`UnPlug` puede ser usado para instalar tu propio fork de un plugin o para instalar
-un plugin compartido con opciones personalizadas distintas.
-
-    " Only load vim-coffee-script if a Coffeescript buffer is created
-    UnPlug 'vim-coffee-script'
-    Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-
-    " Use a personal fork of vim-run-interactive
-    UnPlug 'vim-run-interactive'
-    Plug '$HOME/plugins/vim-run-interactive'
-
 Para extender tus `git` hooks, crea scripts ejecutables en
 `~/dotfiles-local/git_template.local/hooks/*` files.
 
@@ -127,11 +99,6 @@ Tu `~/dotfiles-local/zshrc.local` tal vez se vea así:
     if command -v pyenv &>/dev/null ; then
       eval "$(pyenv init -)"
     fi
-
-Tu `~/dotfiles-local/vimrc.bundles.local` tal vez se vea así:
-
-    Plug 'Lokaltog/vim-powerline'
-    Plug 'stephenmckinney/vim-solarized-powerline'
 
 Configuraciones de zsh
 ----------------------
@@ -163,37 +130,8 @@ puede agregar el archivo `virtualenv`, otro el archivo `keys` y un tercero el ar
 
 El archivo `~/dotfiles-local/zshrc.local` se carga después de `~/dotfiles-local/zsh/configs`.
 
-Configuraciones de vim
-----------------------
-
-Similar al directorio de configuración para zsh descrito arriba, vim
-automáticamente descarga los archivos en el directorio `~/dotfiles-local/vim/plugin`. Sin embargo, este no
-tiene el mismo soporte para los subdirectorios `pre` ni `post` que tiene nuestro `zshrc`.
-
-Este es un ejemplo `~/dotfiles-local/vim/plugin/c.vim`. Se carga cada vez que inicia vim,
-sin importar de nombre del archivo:
-
-    # Indent C programs according to BSD style(9)
-    set cinoptions=:0,t0,+4,(4
-    autocmd BufNewFile,BufRead *.[ch] setlocal sw=0 ts=8 noet
-
 ¿Qué viene incluido?
 -----------------
-
-Configuración [vim](http://www.vim.org/):
-
-* [fzf](https://github.com/junegunn/fzf.vim) para hallazgo difuso de archivos/buffer/tags.
-* [Rails.vim](https://github.com/tpope/vim-rails) para una mejor navegación de la estructura
-de archivos de Rails via `gf` y `:A` (alterno), `:Rextract` parciales,`:Rinvert` migraciones, etc.
-* Ejecuta muchos tipos de pruebas [desde vim]([https://github.com/janko-m/vim-test)
-* Establece `<leader>` a un sólo espacio.
-* Navega entre los últimos dos archivos con espacio-espacio
-* Resaltado de sintaxis para Markdown, HTML, JavaScript, Ruby, Go, Elixir, y más.
-* Usa [Ag](https://github.com/ggreer/the_silver_searcher) en lugar de Grep cuando esté disponible.
-* Map `<leader>ct` para re-indexar [Exuberant Ctags](http://ctags.sourceforge.net/).
-* Usa [vim-mkdir](https://github.com/pbrisbin/vim-mkdir) para crear automáticamente directorios
-  no existentes antes de escribir el buffer.
-* Usa [vim-plug](https://github.com/junegunn/vim-plug) para administrar plugins.
 
 [tmux](http://robots.thoughtbot.com/a-tmux-crash-course)
 configuración:
@@ -215,16 +153,14 @@ Configuración para [git](http://git-scm.com/):
   configuración local.
 * Agrega el alias `trust-bin` para anexar el `bin/` de un proyecto al `$PATH`.
 
-Configuración de [Ruby](https://www.ruby-lang.org/en/):
+Gestión de versiones / runtime:
 
 * Agrega binstubs confiables al `PATH`.
 * Descarga el administrador de versiones ASDF.
 
 Alias de Shell y scripts:
 
-* `b` para `bundle`.
 * `g` sin argumentos es `git status` y con argumentos funciona como `git`.
-* `migrate` para `rake db:migrate && rake db:rollback && rake db:migrate`.
 * `mcd` para crear un directorio e ir a él.
 * `replace foo bar **/*.rb` para buscar y reemplazar en una lista dada de archivos.
 * `tat` para adjuntar a una sesión de tmux llamada igual que el directorio actual.

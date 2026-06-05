@@ -1,3 +1,10 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("/Users/zero/.oh-my-zsh/custom/completions" $fpath)
+autoload -Uz compinit
+compinit
+# OPENSPEC:END
+
 # load custom executable functions
 for function in ~/.zsh/functions/*; do
   source $function
@@ -135,7 +142,7 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 
-alias ls="exa --long --header --git --icons"
+# alias ls="eza --long --header --git --icons"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -165,6 +172,8 @@ alias tn='tmux new-session'
 # Lists all ongoing sessions
 alias tl='tmux list-sessions'
 
+alias lcc='~/lcc.sh'
+
 session_name="sesh"
 
 tmux has-session -t=$session_name  2> /dev/null
@@ -188,16 +197,6 @@ PATH="/Applications/Postgres.app/Contents/Versions/13/bin:$PATH"
 
 eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/powerlevel10k_rainbow.omp.json)"
 
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
-export JAVA_HOME=/usr/local/Cellar/openjdk@17/17.0.7/libexec/openjdk.jdk/Contents/Home
-
-PATH="$HOME/.composer/vendor/bin:$PATH"
-
-export PATH
-
 # bun completions
 [ -s "/Users/zero/.bun/_bun" ] && source "/Users/zero/.bun/_bun"
 
@@ -206,3 +205,13 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 PATH=~/.console-ninja/.bin:$PATH
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/zero/.antigravity/antigravity/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Android SDK
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/34.0.0"
+export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
