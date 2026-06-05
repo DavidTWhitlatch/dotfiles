@@ -27,7 +27,7 @@ establece `zsh` como shell de inicio, y enlaza los dotfiles con
 [rcm](https://github.com/thoughtbot/rcm).
 
 **Prerrequisitos manuales** que el script no instala: `forge` (ForgeCode),
-`doubledev-mise_en_place`, y opcionalmente `bun`, VS Code y Sourcetree.
+`doubledev-mise_en_place`, y opcionalmente `bun` y VS Code.
 
 ### Instalación manual (sin el script)
 

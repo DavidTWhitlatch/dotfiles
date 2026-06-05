@@ -39,7 +39,7 @@ you use them):
 
 * `forge` (ForgeCode CLI) — provides the managed `forge zsh plugin/theme` block in `zshrc`.
 * `doubledev-mise_en_place` — a local project added to `PATH` in `zshrc`.
-* `bun`, VS Code, and Sourcetree — optional; not installed by the script.
+* `bun` and VS Code — optional; not installed by the script.
 
 ### Manual install (without the script)
 

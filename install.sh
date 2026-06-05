@@ -79,5 +79,5 @@ cat <<'NOTE'
 Manual prerequisites this script does NOT install (set up separately if you use them):
   • forge   — ForgeCode CLI; provides the managed `forge zsh plugin/theme` block in zshrc
   • doubledev-mise_en_place — local project, added to PATH in zshrc
-  • bun, VS Code, Sourcetree — optional; not installed here
+  • bun, VS Code — optional; not installed here
 NOTE
