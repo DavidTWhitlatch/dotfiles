@@ -18,7 +18,7 @@
   st = status
 [core]
   editor = code --wait
-	excludesfile = /Users/zero/.gitignore_global
+	excludesfile = ~/.gitignore_global
   autocrlf = input
 [merge]
   ff = only
@@ -36,7 +36,7 @@
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /Users/zero/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = $HOME/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [credential]
 	helper = osxkeychain
@@ -46,4 +46,4 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 [includeIf "gitdir:~/doubledev/"]
-	path = /Users/zero/.gitconfig-doubledev
+	path = ~/.gitconfig-doubledev

@@ -1,5 +1,5 @@
 # Added by ForgeCode installer
-export PATH="/Users/zero/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # OPENSPEC:START
 # OpenSpec shell completions configuration
 fpath=("$HOME/.oh-my-zsh/custom/completions" $fpath)
@@ -203,7 +203,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="/Users/zero/doubledev/doubledev-mise_en_place/target/release:$PATH"
+export PATH="$HOME/doubledev/doubledev-mise_en_place/target/release:$PATH"
 
 # >>> forge initialize >>>
 # !! Contents within this block are managed by 'forge zsh setup' !!
