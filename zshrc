@@ -148,8 +148,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+# rbenv disabled (no longer using Ruby)
+# PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || PATH="$PYENV_ROOT/bin:$PATH"
@@ -158,36 +159,38 @@ eval "$(pyenv init -)"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.oh-my-zsh/zsh-git-prompt/zshrc.sh
 
+# --- tmux disabled (using Herd instead); kept as backup ---
 # Some tmux-related shell aliases
-
-# Attaches tmux to the last session; creates a new session if none exists.
-alias t='tmux attach -t "sesh" || tmux new-session'
-
-# Attaches tmux to a session (example: ta portal)
-alias ta='tmux attach -t'
-
-# Creates a new session
-alias tn='tmux new-session'
-
-# Lists all ongoing sessions
-alias tl='tmux list-sessions'
+#
+# # Attaches tmux to the last session; creates a new session if none exists.
+# alias t='tmux attach -t "sesh" || tmux new-session'
+#
+# # Attaches tmux to a session (example: ta portal)
+# alias ta='tmux attach -t'
+#
+# # Creates a new session
+# alias tn='tmux new-session'
+#
+# # Lists all ongoing sessions
+# alias tl='tmux list-sessions'
 
 alias lcc='~/lcc.sh'
 
-session_name="sesh"
-
-tmux has-session -t=$session_name  2> /dev/null
-
-if [[ $? -ne 0 ]]; then
-  TMUX=''
-  tmux new-session -d -s "$session_name" -c ~/Documents/projects
-fi
-
-if [[ -z "$TMUX" ]]; then
-  tmux attach -t "$session_name"
-else
-  tmux switch-client -t "$session_name"
-fi
+# --- tmux auto-start disabled (using Herd instead); kept as backup ---
+# session_name="sesh"
+#
+# tmux has-session -t=$session_name  2> /dev/null
+#
+# if [[ $? -ne 0 ]]; then
+#   TMUX=''
+#   tmux new-session -d -s "$session_name" -c ~/Documents/projects
+# fi
+#
+# if [[ -z "$TMUX" ]]; then
+#   tmux attach -t "$session_name"
+# else
+#   tmux switch-client -t "$session_name"
+# fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
