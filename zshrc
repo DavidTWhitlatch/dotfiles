@@ -57,7 +57,7 @@ export ZSH="$HOME/.oh-my-zsh"
   # load a random theme each time oh-my-zsh is loaded, in which case,
     # to know which specific one was loaded, run: echo $RANDOM_THEME
     # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-    ZSH_THEME="robbyrussell"
+    ZSH_THEME=""  # prompt handled by oh-my-posh (loaded at the bottom of this file)
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -113,7 +113,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z github history macos vscode npm lol)
 # pip pyenv pylint python sublime
-ZSH_DISABLE_COMPFIX= true
+ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -154,10 +154,12 @@ export NVM_DIR="$HOME/.nvm"
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+command -v pyenv >/dev/null && eval "$(pyenv init -)"
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.oh-my-zsh/zsh-git-prompt/zshrc.sh
+# zsh-syntax-highlighting — portable across Intel/Apple-Silicon brew prefixes; skip if absent
+_zsh_syntax_hl="$(brew --prefix 2>/dev/null)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[ -f "$_zsh_syntax_hl" ] && source "$_zsh_syntax_hl"
+unset _zsh_syntax_hl
 
 # --- tmux disabled (using Herd instead); kept as backup ---
 # Some tmux-related shell aliases
@@ -194,27 +196,18 @@ alias lcc='~/lcc.sh'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source ~/.zshrc.local
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
-PATH="/Applications/Postgres.app/Contents/Versions/13/bin:$PATH"
-
-eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/powerlevel10k_rainbow.omp.json)"
+# Prompt: oh-my-posh (skip cleanly if not installed)
+if command -v oh-my-posh >/dev/null; then
+  eval "$(oh-my-posh init zsh --config "$(brew --prefix oh-my-posh)/themes/powerlevel10k_rainbow.omp.json")"
+fi
 
 # bun completions
-[ -s "/Users/zero/.bun/_bun" ] && source "/Users/zero/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-PATH=~/.console-ninja/.bin:$PATH
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"
-
-# Added by Antigravity
-export PATH="/Users/zero/.antigravity/antigravity/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-
-# Android SDK
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/34.0.0"
-export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
