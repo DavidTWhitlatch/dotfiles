@@ -34,12 +34,9 @@ Homebrew packages (see [`Brewfile`](Brewfile)): `rcm`, `oh-my-posh`,
 
 Bootstrapped outside Homebrew: oh-my-zsh + `zsh-autosuggestions`, and nvm (`~/.nvm`).
 
-**Manual prerequisites** the script does *not* install (set these up separately if
-you use them):
-
-* `forge` (ForgeCode CLI) — provides the managed `forge zsh plugin/theme` block in `zshrc`.
-* `doubledev-mise_en_place` — a local project added to `PATH` in `zshrc`.
-* `bun` and VS Code — optional; not installed by the script.
+Everything the zsh configs reference is installed by the script — machine-specific
+tools (extra CLIs, editors, runtimes) belong in the `~/dotfiles-local` override
+layer, e.g. `~/dotfiles-local/zshrc.local`.
 
 ### Manual install (without the script)
 

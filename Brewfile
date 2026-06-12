@@ -4,9 +4,8 @@
 #     brew bundle --file=Brewfile
 # or let ./install.sh do it (plus the non-brew bootstrap) for you.
 #
-# NOTE: nvm and bun are intentionally NOT here — the dotfiles expect them at
-# ~/.nvm and ~/.bun (their official installers), not the Homebrew layout.
-# install.sh handles nvm; bun is a documented manual prereq.
+# NOTE: nvm is intentionally NOT here — the dotfiles expect it at ~/.nvm
+# (its official installer), not the Homebrew layout. install.sh handles it.
 
 tap "thoughtbot/formulae"
 
@@ -36,5 +35,4 @@ brew "git"
 brew "git-lfs"
 
 # Nerd Font for oh-my-posh glyphs.
-# (Your forge block currently sets NERD_FONT=0; remove that line to use icons.)
 cask "font-meslo-lg-nerd-font"

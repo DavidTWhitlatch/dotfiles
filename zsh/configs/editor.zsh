@@ -1,2 +1,2 @@
-export VISUAL='code --wait'
+export VISUAL=vim
 export EDITOR=$VISUAL

@@ -1,4 +1,4 @@
-# Added by ForgeCode installer
+# user-local binaries (herdr et al. live here)
 export PATH="$HOME/.local/bin:$PATH"
 # OPENSPEC:START
 # OpenSpec shell completions configuration
@@ -112,7 +112,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z github history macos vscode npm lol)
+plugins=(git z github history macos npm lol zsh-autosuggestions)
 # pip pyenv pylint python sublime
 ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
@@ -140,8 +140,8 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="code ~/.zshrc"
-alias ohmyzsh="code ~/.oh-my-zsh"
+alias zshconfig='$EDITOR ~/.zshrc'
+alias ohmyzsh='$EDITOR ~/.oh-my-zsh'
 
 # alias ls="eza --long --header --git --icons"
 
@@ -194,43 +194,6 @@ alias lcc='~/lcc.sh'
 if command -v oh-my-posh >/dev/null; then
   eval "$(oh-my-posh init zsh --config "$(brew --prefix oh-my-posh)/themes/powerlevel10k_rainbow.omp.json")"
 fi
-
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/doubledev/doubledev-mise_en_place/target/release:$PATH"
-
-# >>> forge initialize >>>
-# !! Contents within this block are managed by 'forge zsh setup' !!
-# !! Do not edit manually - changes will be overwritten !!
-
-# Add required zsh plugins if not already present
-if [[ ! " ${plugins[@]} " =~ " zsh-autosuggestions " ]]; then
-    plugins+=(zsh-autosuggestions)
-fi
-if [[ ! " ${plugins[@]} " =~ " zsh-syntax-highlighting " ]]; then
-    plugins+=(zsh-syntax-highlighting)
-fi
-
-# Load forge shell plugin (commands, completions, keybindings) if not already loaded
-if [[ -z "$_FORGE_PLUGIN_LOADED" ]]; then
-    eval "$(forge zsh plugin)"
-fi
-
-# Load forge shell theme (prompt with AI context) if not already loaded
-if [[ -z "$_FORGE_THEME_LOADED" ]]; then
-    eval "$(forge zsh theme)"
-fi
-
-# Disable Nerd Fonts (set during setup - icons not displaying correctly)
-# To re-enable: remove this line and install a Nerd Font from https://www.nerdfonts.com/
-export NERD_FONT=0
-# <<< forge initialize <<<
 
 # Launch herdr on interactive terminal startup (replaces the old tmux autostart).
 # Guards: only interactive shells attached to a real TTY, never inside an existing

@@ -44,7 +44,7 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
     "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-# 5. oh-my-zsh custom plugin: zsh-autosuggestions (used by the forge block) --
+# 5. oh-my-zsh custom plugin: zsh-autosuggestions (in zshrc's plugins list) ---
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
   log "Installing zsh-autosuggestions plugin"
@@ -73,11 +73,3 @@ log "Linking dotfiles with rcup"
 env RCRC="$DOTFILES/rcrc" rcup -v
 
 log "Done — open a new terminal, or run: exec zsh"
-
-cat <<'NOTE'
-
-Manual prerequisites this script does NOT install (set up separately if you use them):
-  • forge   — ForgeCode CLI; provides the managed `forge zsh plugin/theme` block in zshrc
-  • doubledev-mise_en_place — local project, added to PATH in zshrc
-  • bun, VS Code — optional; not installed here
-NOTE
