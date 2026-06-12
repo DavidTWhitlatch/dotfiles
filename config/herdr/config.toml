@@ -6,31 +6,6 @@ delivery = "herdr"
 [ui]
 show_agent_labels_on_pane_borders = true
 
-# Pastel-pink dark mode ("Rose Garden"). Base theme only supplies fallbacks;
-# every token is overridden below. Color tokens (from herdr 0.6.2):
-#   accent, panel_bg, surface0, surface1, surface_dim, overlay0, overlay1,
-#   text, subtext0, mauve, green, yellow, red, blue, teal, peach
-[theme]
-name = "catppuccin"
-
-[theme.custom]
-panel_bg    = "#1a1016"   # deep plum-black
-surface_dim = "#140c11"
-surface0    = "#2a1c24"
-surface1    = "#382631"
-overlay0    = "#715a66"
-overlay1    = "#8d7280"
-text        = "#f6dee9"   # rose-tinted off-white
-subtext0    = "#cfaabc"
-accent      = "#f5b8d0"   # pastel pink
-mauve       = "#cf9af0"
-green       = "#8fdcab"
-yellow      = "#eed188"
-red         = "#f08099"
-blue        = "#8fb8f5"
-teal        = "#7ed8cd"
-peach       = "#f5ad85"
-
 [keys]
 # Match the old tmux prefix (was: set -g prefix C-a)
 prefix = "ctrl+a"
