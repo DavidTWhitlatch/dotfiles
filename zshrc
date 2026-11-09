@@ -199,11 +199,14 @@ fi
 # Guards: only interactive shells attached to a real TTY, never inside an existing
 # herdr pane ($HERDR_PANE_ID) or tmux session ($TMUX). Quitting herdr drops you to
 # this shell as an escape hatch. To skip on launch: `HERDR_NO_AUTOSTART=1`.
+# On a hed-workstation machine its shell drop-in starts herdr with the same guards, so this
+# block steps aside there; running both would reopen herdr when you quit it.
 if [[ -o interactive ]] \
   && [[ -t 1 ]] \
   && [[ -z "$HERDR_PANE_ID" ]] \
   && [[ -z "$TMUX" ]] \
   && [[ -z "$HERDR_NO_AUTOSTART" ]] \
+  && [[ ! -f "${HED_WORKSTATION_STATE_DIR:-$HOME/.config/hed-workstation}/env.zsh" ]] \
   && command -v herdr >/dev/null 2>&1; then
   herdr
 fi
